@@ -50,7 +50,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.getElementById("up").addEventListener("click", upClick);
 document.getElementById("down").addEventListener("click", downClick);
 document.getElementById("left").addEventListener("click", leftClick);
-document.getElementById("right").addEventListener("right", rightClick);
+document.getElementById("right").addEventListener("click", rightClick);
 
 var snakeColor = "#0095DD";
 

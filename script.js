@@ -219,6 +219,7 @@ function checkHitWall() {
     snake[0].y > canvas.height - sectionHeight
   ) {
     alert("LOSE LOSE EEL BREAKFAST");
+    document.location.reload();
   }
 }
 

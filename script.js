@@ -6,6 +6,7 @@ canvas.width = 600;
 canvas.height = 600;
 
 var speed = 100;
+var lost = false;
 // var xSections = 20;
 // var ySections = 20;
 var sectionNums = { x: 20, y: 20 }; // number of sections
@@ -212,14 +213,17 @@ function updateScore() {
 }
 
 function checkHitWall() {
-  if (
-    snake[0].x < 0 ||
-    snake[0].x > canvas.width - sectionWidth ||
-    snake[0].y < 0 ||
-    snake[0].y > canvas.height - sectionHeight
-  ) {
-    alert("LOSE LOSE EEL BREAKFAST");
-    document.location.reload();
+  if (!lost) {
+    if (
+      snake[0].x < 0 ||
+      snake[0].x > canvas.width - sectionWidth ||
+      snake[0].y < 0 ||
+      snake[0].y > canvas.height - sectionHeight
+    ) {
+      lost = true;
+      alert("LOSE LOSE EEL BREAKFAST");
+      document.location.reload();
+    }
   }
 }
 

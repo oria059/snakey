@@ -5,29 +5,32 @@ var ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
 
-var xSections = 20;
-var ySections = 20;
+var speed = 100;
+// var xSections = 20;
+// var ySections = 20;
+var sectionNums = { x: 20, y: 20 }; // number of sections
 
 // height == width probably a good idea
-var sectionWidth = canvas.width / xSections;
-var sectionHeight = canvas.height / ySections;
+var sectionWidth = canvas.width / sectionNums.x;
+var sectionHeight = canvas.height / sectionNums.y;
 
-var sections = [];
-var xSectionCoord = 0;
-var ySectionCoord = 0;
+// var sections = [];
+// var xSectionCoord = 0;
+// var ySectionCoord = 0;
 
-for (c = 0; c < ySections; c++) {
-  sections[c] = [];
-  for (r = 0; r < xSections; r++) {
-    sections[c][r] = { x: xSectionCoord, y: ySectionCoord, status: 0 };
-  }
-  ySectionCoord += sectionWidth;
-  xSectionCoord += sectionHeight;
-}
+// for (c = 0; c < sections.y; c++) {
+//   sections[c] = [];
+//   for (r = 0; r < sections.x; r++) {
+//     sections[c][r] = { x: xSectionCoord, y: ySectionCoord, status: 0 };
+//   }
+//   ySectionCoord += sectionWidth;
+//   xSectionCoord += sectionHeight;
+// }
 
-var xSnake = canvas.width / 2;
-var ySnake = canvas.height / 2;
-var snakeBody = [];
+// var xSnake = canvas.width / 2;
+// var ySnake = canvas.height / 2;
+var snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
+var snake = [snakeHead];
 var snakeLength = 1;
 
 var score = 0;
@@ -37,18 +40,20 @@ var direction = "right";
 
 document.addEventListener("keydown", keyDownHandler, false);
 
-var speed = 600;
 var snakeColor = "#0095DD";
+
+var snack = { x: -1, y: -1 };
+var snackColor = "red";
 
 function keyDownHandler(e) {
   // left key
   if (e.keyCode >= 37 && e.keyCode <= 40) {
     console.log("key pressed: ");
     console.log(e.keyCode);
-    if (e.keyCode == 39) {
+    if (e.keyCode == 37) {
       direction = "left";
       //    moveLeft();
-    } else if (e.keyCode == 37) {
+    } else if (e.keyCode == 39) {
       direction = "right";
       //      moveRight();
     } else if (e.keyCode == 38) {
@@ -63,50 +68,102 @@ function keyDownHandler(e) {
 }
 
 function moveSnake() {
-  if (direction == "left" && xSnake > 0) {
+  if (direction == "left" && snake[0].x > 0) {
     moveLeft();
-  } else if (direction == "right" && xSnake < canvas.width) {
+  } else if (direction == "right" && snake[0].x < canvas.width) {
     moveRight();
-  } else if (direction == "up" && ySnake < canvas.height) {
+  } else if (direction == "up" && snake[0].y > 0) {
     moveUp();
-  } else if (direction == "down" && ySnake > 0) {
+  } else if (direction == "down" && snake[0].y < canvas.height) {
     moveDown();
   }
 }
 
 function moveLeft() {
-  xSnake = xSnake + sectionWidth;
+  snake.unshift({ x: snake[0].x - sectionWidth, y: snake[0].y });
+  //snake[0].x = snake[0].x + sectionWidth;
 }
 
 function moveRight() {
-  xSnake = xSnake - sectionWidth;
+  snake.unshift({ x: snake[0].x + sectionWidth, y: snake[0].y });
+  //snake[0].x = snake[0].x - sectionWidth;
 }
 
 function moveUp() {
-  ySnake = ySnake - sectionHeight;
+  snake.unshift({ x: snake[0].x, y: snake[0].y - sectionHeight });
+  // snake[0].y = snake[0].y - sectionHeight;
 }
 
 function moveDown() {
-  ySnake = ySnake + sectionHeight;
+  snake.unshift({ x: snake[0].x, y: snake[0].y + sectionHeight });
+  // snake[0].y = snake[0].y + sectionHeight;
 }
 
-function drawSnake() {
-  snakeBody.push({ x: xSnake, y: ySnake });
+function snackIsOnSnake(body) {
+  return body.x == snack.x && body.y == snack.y;
+}
 
-  if (snakeBody.length > snakeLength) {
-    ctx.clearRect(snakeBody[0].x, snakeBody[0].y, sectionWidth, sectionHeight);
-    // ctx.fillStyle = "black";
-    // ctx.fillRect(snakeBody[0].x, snakeBody[0].y, sectionWidth, sectionHeight);
-    snakeBody.shift();
+function generateSnacks() {
+  do {
+    var xSection = Math.floor(Math.random() * sectionNums.x);
+    var ySection = Math.floor(Math.random() * sectionNums.y);
+    console.log(xSection);
+    console.log(ySection);
+    snack.x = xSection * sectionWidth;
+    snack.y = ySection * sectionHeight;
+  } while (snake.some(snackIsOnSnake));
+}
+
+function drawSnack() {
+  ctx.fillStyle = snackColor;
+  ctx.fillRect(snack.x, snack.y, sectionWidth, sectionHeight);
+}
+
+function snackIsEaten() {
+  if (snake[0].x == snack.x && snake[0].y == snack.y) {
+    console.log("snack eaten");
   }
+  return snake[0].x == snack.x && snake[0].y == snack.y;
+}
+
+function snackCheck() {
+  // no snack or snack is eaten
+  if (snackIsEaten() || snack.x < 0) {
+    snakeLength += 1;
+    generateSnacks();
+  }
+}
+function drawSnake() {
   ctx.fillStyle = snakeColor;
-  ctx.fillRect(xSnake, ySnake, sectionWidth, sectionHeight);
+  ctx.fillRect(snake[0].x, snake[0].y, sectionWidth, sectionHeight);
+  // //snake has moved
+  // if (snake[0].x != snake[0].x && snake[0].y != snake[0].y) {
+  //   snake.unshift({ x: snake[0].x, y: snake[0].y });
+  // }
+  if (snake.length > snakeLength) {
+    // var itail = snake.length - 1;
+    // ctx.clearRect(snake[itail].x, snake[itail].y, sectionWidth, sectionHeight);
+    // ctx.fillStyle = "black";
+    // ctx.fillRect(snake[0].x, snake[0].y, sectionWidth, sectionHeight);
+    snake.pop();
+  }
+  snake.forEach(function(body) {
+    ctx.fillStyle = snakeColor;
+    ctx.fillRect(body.x, body.y, sectionWidth, sectionHeight);
+  });
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function draw() {
   //  console.log("draw");
   moveSnake();
+  clearCanvas();
   drawSnake();
+  snackCheck();
+  drawSnack();
 }
 
 function start() {

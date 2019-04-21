@@ -105,13 +105,25 @@ function rightClick(e) {
 
 // fix later
 function moveSnake() {
-  if (direction == "left" && snake[0].x > 0) {
+  // if (direction == "left" && snake[0].x > 0) {
+  //   moveLeft();
+  // } else if (direction == "right" && snake[0].x < canvas.width - sectionWidth) {
+  //   moveRight();
+  // } else if (direction == "up" && snake[0].y > 0) {
+  //   moveUp();
+  // } else if (
+  //   direction == "down" &&
+  //   snake[0].y < canvas.height - sectionHeight
+  // ) {
+  //   moveDown();
+  // }
+  if (direction == "left") {
     moveLeft();
-  } else if (direction == "right" && snake[0].x < canvas.width) {
+  } else if (direction == "right") {
     moveRight();
-  } else if (direction == "up" && snake[0].y > 0) {
+  } else if (direction == "up") {
     moveUp();
-  } else if (direction == "down" && snake[0].y < canvas.height) {
+  } else if (direction == "down") {
     moveDown();
   }
 }
@@ -198,6 +210,18 @@ function updateScore() {
   score = snakeLength - 2;
   document.getElementById("score").innerHTML = "score: " + score;
 }
+
+function checkHitWall() {
+  if (
+    snake[0].x < 0 ||
+    snake[0].x > canvas.width - sectionWidth ||
+    snake[0].y < 0 ||
+    snake[0].y > canvas.height - sectionHeight
+  ) {
+    alert("LOSE LOSE EEL BREAKFAST");
+  }
+}
+
 function draw() {
   //  console.log("draw");
   moveSnake();
@@ -206,6 +230,7 @@ function draw() {
   snackCheck();
   drawSnack();
   updateScore();
+  checkHitWall();
 }
 
 function start() {

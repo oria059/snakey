@@ -272,7 +272,7 @@ function mobileCheck() {
 }
 
 function start() {
- mobileCheck();
+// mobileCheck();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setInterval(draw, speed);
 }

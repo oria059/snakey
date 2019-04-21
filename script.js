@@ -2,14 +2,14 @@ var canvas = document.getElementById("snake-board");
 
 var ctx = canvas.getContext("2d");
 
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = 660;
+canvas.height = 660;
 
-var speed = 170;
+var speed = 150;
 var lost = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 20, y: 20 }; // number of sections
+var sectionNums = { x: 22, y: 22 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;

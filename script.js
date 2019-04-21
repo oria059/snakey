@@ -248,8 +248,6 @@ function draw() {
 function mobileCheck() {
 if(window.mobilecheck) {
 speed = 120;
-canvas.width = 660;
-canvas.height = 660;
  sectionNums = { x: 15, y: 15 }; // number of sections
  sectionWidth = canvas.width / sectionNums.x;
  sectionHeight = canvas.height / sectionNums.y;

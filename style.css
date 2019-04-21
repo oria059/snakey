@@ -7,20 +7,20 @@
 
 .buttons {
   text-align: center;
-  width: 600px;
+  width: 650px;
 }
 button {
   border: none;
   background-color: #0095dd;
   color: #fff;
-  padding: 8px 20px;
+  padding: 25px 15px;
   text-align: center;
   text-decoration: none;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: bold;
   margin-right: 30px;
   border-radius: 8%;
-  width: 60px;
+  width: 100px;
 }
 
 #snake-board {

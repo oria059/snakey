@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 canvas.width = 660;
 canvas.height = 660;
 
-var speed = 100;
+var speed = 50;
 var lost = false;
 var paused = false;
 // var xSections = 20;

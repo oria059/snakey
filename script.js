@@ -7,6 +7,7 @@ canvas.height = 660;
 
 var speed = 200;
 var lost = false;
+var paused = false;
 // var xSections = 20;
 // var ySections = 20;
 var sectionNums = { x: 20, y: 20 }; // number of sections
@@ -87,7 +88,7 @@ window.mobilecheck = function() {
 
 function keyDownHandler(e) {
   // left key
-  if (e.keyCode >= 37 && e.keyCode <= 40) {
+  if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 80) {
     console.log("key pressed: ");
     console.log(e.keyCode);
     if (e.keyCode == 37) {
@@ -102,6 +103,9 @@ function keyDownHandler(e) {
     } else if (e.keyCode == 40) {
       direction = "down";
       //    moveDown();
+    } else if (e.keyCode == 80) {
+      // p is pressed
+      paused = true;
     }
     //  drawSnake(direction);
   }
@@ -245,13 +249,15 @@ function checkHitWall() {
 
 function draw() {
   //  console.log("draw");
-  moveSnake();
-  clearCanvas();
-  drawSnake();
-  snackCheck();
-  drawSnack();
-  updateScore();
-  checkHitWall();
+  if (!lost && !paused) {
+    moveSnake();
+    clearCanvas();
+    drawSnake();
+    snackCheck();
+    drawSnack();
+    updateScore();
+    checkHitWall();
+  }
 }
 
 function mobileCheck() {
@@ -266,7 +272,7 @@ function mobileCheck() {
 }
 
 function start() {
-  mobileCheck();
+  //  mobileCheck();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setInterval(draw, speed);
 }

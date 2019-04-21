@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 canvas.width = 660;
 canvas.height = 660;
 
-var speed = 50;
+var speed = 100;
 var lost = false;
 var paused = false;
 // var xSections = 20;
@@ -262,7 +262,7 @@ function draw() {
 
 function mobileCheck() {
   if (window.mobilecheck) {
-    speed = 50;
+    speed = 250;
   //  sectionNums = { x: 15, y: 15 }; // number of sections
     //sectionWidth = canvas.width / sectionNums.x;
     //sectionHeight = canvas.height / sectionNums.y;
@@ -272,7 +272,7 @@ function mobileCheck() {
 }
 
 function start() {
-// mobileCheck();
+ mobileCheck();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setInterval(draw, speed);
 }

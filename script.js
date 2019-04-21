@@ -263,16 +263,16 @@ function draw() {
 function mobileCheck() {
   if (window.mobilecheck) {
     speed = 80;
-    sectionNums = { x: 15, y: 15 }; // number of sections
-    sectionWidth = canvas.width / sectionNums.x;
-    sectionHeight = canvas.height / sectionNums.y;
-    snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
-    snake = [snakeHead];
+  //  sectionNums = { x: 15, y: 15 }; // number of sections
+    //sectionWidth = canvas.width / sectionNums.x;
+    //sectionHeight = canvas.height / sectionNums.y;
+    //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
+   // snake = [snakeHead];
   }
 }
 
 function start() {
-  //  mobileCheck();
+ mobileCheck();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setInterval(draw, speed);
 }

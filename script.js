@@ -241,7 +241,7 @@ function checkHitWall() {
       snake[0].y > canvas.height - sectionHeight
     ) {
       lost = true;
-      alert("LOSE LOSE EEL BREAKFAST");
+      alert("LOSE LOSE EEL BREAKFAST!! SCORE: " + score);
       document.location.reload();
     }
   }

@@ -38,6 +38,17 @@ var score = 0;
 var directions = ["left", "right", "up", "down"];
 var direction = "right";
 
+window.addEventListener(
+  "keydown",
+  function(e) {
+    // space and arrow keys
+    if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
+  },
+  false
+);
+
 document.addEventListener("keydown", keyDownHandler, false);
 
 // var leftButton = document.getElementById("left")[0];
@@ -183,6 +194,10 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function updateScore() {
+  score = snakeLength - 2;
+  document.getElementById("score").innerHTML = "score: " + score;
+}
 function draw() {
   //  console.log("draw");
   moveSnake();
@@ -190,6 +205,7 @@ function draw() {
   drawSnake();
   snackCheck();
   drawSnack();
+  updateScore();
 }
 
 function start() {

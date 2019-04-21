@@ -67,6 +67,7 @@ function keyDownHandler(e) {
   }
 }
 
+// fix later
 function moveSnake() {
   if (direction == "left" && snake[0].x > 0) {
     moveLeft();

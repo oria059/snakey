@@ -40,6 +40,18 @@ var direction = "right";
 
 document.addEventListener("keydown", keyDownHandler, false);
 
+// var leftButton = document.getElementById("left")[0];
+// var rightButton = document.getElementById("right")[0];
+// var upButton = document.getElementById("up")[0];
+// var downButton = document.getElementById("down")[0];
+// document.addEventListener("click", upClick, false);
+// document.addEventListener("click", upClick, false);
+
+document.getElementById("up").addEventListener("click", upClick);
+document.getElementById("down").addEventListener("click", downClick);
+document.getElementById("left").addEventListener("click", leftClick);
+document.getElementById("right").addEventListener("right", rightClick);
+
 var snakeColor = "#0095DD";
 
 var snack = { x: -1, y: -1 };
@@ -65,6 +77,19 @@ function keyDownHandler(e) {
     }
     //  drawSnake(direction);
   }
+}
+
+function upClick(e) {
+  direction = "up";
+}
+function downClick(e) {
+  direction = "down";
+}
+function leftClick(e) {
+  direction = "left";
+}
+function rightClick(e) {
+  direction = "right";
 }
 
 // fix later

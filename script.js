@@ -239,7 +239,7 @@ function mobileCheck() {
     canvas.width = 672;
 canvas.height = 672;
 // alt: 672, 24, 14
-speed = 250;
+speed = 280;
     sectionNums = { x: 14, y: 14 }; // number of sections
     sectionWidth = canvas.width / sectionNums.x;
     sectionHeight = canvas.height / sectionNums.y;

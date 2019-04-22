@@ -236,11 +236,11 @@ function draw() {
 
 function mobileCheck() {
   if (window.mobilecheck()) {
-    canvas.width = 6600;
-canvas.height = 6600;
+    canvas.width = 690;
+canvas.height = 690;
 // alt: 672, 24, 14
 speed = 280;
-    sectionNums = { x: 150, y: 150 }; // number of sections
+    sectionNums = { x: 15, y: 15 }; // number of sections
     sectionWidth = canvas.width / sectionNums.x;
     sectionHeight = canvas.height / sectionNums.y;
     //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };

@@ -236,7 +236,7 @@ function draw() {
 
 function mobileCheck() {
   if (window.mobilecheck()) {
-    canvas.width = 6720;
+    canvas.width = 672;
 canvas.height = 672;
 // alt: 672, 24, 14
 speed = 280;

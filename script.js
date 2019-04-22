@@ -2,8 +2,9 @@ var canvas = document.getElementById("snake-board");
 
 var ctx = canvas.getContext("2d");
 
-canvas.width = 660;
-canvas.height = 660;
+canvas.width = 640;
+canvas.height = 640;
+// alt: 672, 24, 14
 
 var speed = 100;
 var lost = false;
@@ -16,21 +17,6 @@ var sectionNums = { x: 20, y: 20 }; // number of sections
 var sectionWidth = canvas.width / sectionNums.x;
 var sectionHeight = canvas.height / sectionNums.y;
 
-// var sections = [];
-// var xSectionCoord = 0;
-// var ySectionCoord = 0;
-
-// for (c = 0; c < sections.y; c++) {
-//   sections[c] = [];
-//   for (r = 0; r < sections.x; r++) {
-//     sections[c][r] = { x: xSectionCoord, y: ySectionCoord, status: 0 };
-//   }
-//   ySectionCoord += sectionWidth;
-//   xSectionCoord += sectionHeight;
-// }
-
-// var xSnake = canvas.width / 2;
-// var ySnake = canvas.height / 2;
 var snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
 var snake = [snakeHead];
 var snakeLength = 1;
@@ -126,18 +112,6 @@ function rightClick(e) {
 
 // fix later
 function moveSnake() {
-  // if (direction == "left" && snake[0].x > 0) {
-  //   moveLeft();
-  // } else if (direction == "right" && snake[0].x < canvas.width - sectionWidth) {
-  //   moveRight();
-  // } else if (direction == "up" && snake[0].y > 0) {
-  //   moveUp();
-  // } else if (
-  //   direction == "down" &&
-  //   snake[0].y < canvas.height - sectionHeight
-  // ) {
-  //   moveDown();
-  // }
   if (direction == "left") {
     moveLeft();
   } else if (direction == "right") {
@@ -261,18 +235,18 @@ function draw() {
 }
 
 function mobileCheck() {
-  if (window.mobilecheck) {
+  if (window.mobilecheck()) {
     speed = 250;
-  //  sectionNums = { x: 15, y: 15 }; // number of sections
-    //sectionWidth = canvas.width / sectionNums.x;
-    //sectionHeight = canvas.height / sectionNums.y;
+    sectionNums = { x: 16, y: 16 }; // number of sections
+    sectionWidth = canvas.width / sectionNums.x;
+    sectionHeight = canvas.height / sectionNums.y;
     //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
-   // snake = [snakeHead];
+    // snake = [snakeHead];
   }
 }
 
 function start() {
- mobileCheck();
+  mobileCheck();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setInterval(draw, speed);
 }

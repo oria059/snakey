@@ -6,7 +6,7 @@ canvas.width = 640;
 canvas.height = 640;
 // alt: 672, 24, 14
 
-var speed = 100;
+var speed = 150;
 var lost = false;
 var paused = false;
 // var xSections = 20;
@@ -17,7 +17,10 @@ var sectionNums = { x: 20, y: 20 }; // number of sections
 var sectionWidth = canvas.width / sectionNums.x;
 var sectionHeight = canvas.height / sectionNums.y;
 
-var snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
+var snakeHead = {
+  x: sectionWidth * Math.floor(sectionNums.x / 4),
+  y: sectionHeight * Math.floor(sectionNums.y / 4)
+};
 var snake = [snakeHead];
 var snakeLength = 1;
 
@@ -77,21 +80,25 @@ function keyDownHandler(e) {
   if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 80) {
     console.log("key pressed: ");
     console.log(e.keyCode);
-    if (e.keyCode == 37) {
+    if (e.keyCode == 37 && direction != "right") {
       direction = "left";
       //    moveLeft();
-    } else if (e.keyCode == 39) {
+    } else if (e.keyCode == 39 && direction != "left") {
       direction = "right";
       //      moveRight();
-    } else if (e.keyCode == 38) {
+    } else if (e.keyCode == 38 && direction != "down") {
       direction = "up";
       //      moveUp();
-    } else if (e.keyCode == 40) {
+    } else if (e.keyCode == 40 && direction != "up") {
       direction = "down";
       //    moveDown();
     } else if (e.keyCode == 80) {
       // p is pressed
-      paused = true;
+      if (paused) {
+        paused = false;
+      } else {
+        paused = true;
+      }
     }
     //  drawSnake(direction);
   }
@@ -114,11 +121,11 @@ function rightClick(e) {
 function moveSnake() {
   if (direction == "left") {
     moveLeft();
-  } else if (direction == "right") {
+  } else if (direction == "right" && direction != "left") {
     moveRight();
-  } else if (direction == "up") {
+  } else if (direction == "up" && direction != "down") {
     moveUp();
-  } else if (direction == "down") {
+  } else if (direction == "down" && direction != "up") {
     moveDown();
   }
 }
@@ -177,6 +184,12 @@ function snackCheck() {
     generateSnacks();
   }
 }
+
+function playerLose() {
+  lost = true;
+  alert("LOSE LOSE EEL BREAKFAST!! \r\n SCORE: " + score);
+  document.location.reload();
+}
 function drawSnake() {
   ctx.fillStyle = snakeColor;
   ctx.fillRect(snake[0].x, snake[0].y, sectionWidth, sectionHeight);
@@ -194,6 +207,13 @@ function drawSnake() {
   snake.forEach(function(body) {
     ctx.fillStyle = snakeColor;
     ctx.fillRect(body.x, body.y, sectionWidth, sectionHeight);
+    //check if any head hits body
+
+    if (body != snake[0]) {
+      if (body.x == snake[0].x && body.y == snake[0].y) {
+        playerLose();
+      }
+    }
   });
 }
 
@@ -214,12 +234,12 @@ function checkHitWall() {
       snake[0].y < 0 ||
       snake[0].y > canvas.height - sectionHeight
     ) {
-      lost = true;
-      alert("LOSE LOSE EEL BREAKFAST!! \r\n SCORE: " + score);
-      document.location.reload();
+      playerLose();
     }
   }
 }
+
+function checkHitBody() {}
 
 function draw() {
   //  console.log("draw");

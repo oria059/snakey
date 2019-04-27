@@ -11,7 +11,7 @@ var lost = false;
 var paused = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 24, y: 24 }; // number of sections
+var sectionNums = { x: 20, y: 2 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;
@@ -256,9 +256,8 @@ function draw() {
 
 function mobileCheck() {
   if (window.mobilecheck()) {
-  
-// alt: 672, 24, 14
-speed = 280;
+    // alt: 672, 24, 14
+    speed = 280;
     sectionNums = { x: 14, y: 14 }; // number of sections
     sectionWidth = canvas.width / sectionNums.x;
     sectionHeight = canvas.height / sectionNums.y;

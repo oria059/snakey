@@ -11,7 +11,7 @@ var lost = false;
 var paused = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 20, y: 2 }; // number of sections
+var sectionNums = { x: 20, y: 20 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;

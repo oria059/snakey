@@ -2,8 +2,8 @@ var canvas = document.getElementById("snake-board");
 
 var ctx = canvas.getContext("2d");
 
-canvas.width = 640;
-canvas.height = 640;
+canvas.width = 672;
+canvas.height = 672;
 // alt: 672, 24, 14
 
 var speed = 150;
@@ -11,7 +11,7 @@ var lost = false;
 var paused = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 20, y: 20 }; // number of sections
+var sectionNums = { x: 24, y: 24 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;
@@ -256,8 +256,10 @@ function draw() {
 
 function mobileCheck() {
   if (window.mobilecheck()) {
-    speed = 250;
-    sectionNums = { x: 16, y: 16 }; // number of sections
+  
+// alt: 672, 24, 14
+speed = 280;
+    sectionNums = { x: 14, y: 14 }; // number of sections
     sectionWidth = canvas.width / sectionNums.x;
     sectionHeight = canvas.height / sectionNums.y;
     //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };

@@ -30,7 +30,8 @@ var imgsnack;
 var snackPics = [
   "snackpack/oreo.png",
   "snackpack/goldfish.png",
-  "snackpack/icecream.png"
+  "snackpack/icecream.png",
+  "snackpack/pretzel.png"
 ];
 var snack = { x: -1, y: -1 };
 var snackColor = "red";
@@ -168,7 +169,7 @@ function generateSnacks() {
     snack.y = ySection * sectionHeight;
   } while (snake.some(snackIsOnSnake));
   imgSnack = new Image();
-  imgSnack.src = snackPics[Math.floor(Math.random() * 3)];
+  imgSnack.src = snackPics[Math.floor(Math.random() * 4)];
 }
 
 function drawSnack() {

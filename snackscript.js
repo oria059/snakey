@@ -6,12 +6,12 @@ canvas.width = 672;
 canvas.height = 672;
 // alt: 672, 24, 14
 
-var speed = 120;
+var speed = 150;
 var lost = false;
 var paused = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 24, y: 24 }; // number of sections
+var sectionNums = { x: 12, y: 12 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;
@@ -23,6 +23,17 @@ var snakeHead = {
 };
 var snake = [snakeHead];
 var snakeLength = 1;
+
+var snakeColor = "#0095DD";
+
+var imgsnack;
+var snackPics = [
+  "snackpack/oreo.png",
+  "snackpack/goldfish.png",
+  "snackpack/icecream.png"
+];
+var snack = { x: -1, y: -1 };
+var snackColor = "red";
 
 var score = 0;
 
@@ -53,11 +64,6 @@ document.getElementById("up").addEventListener("click", upClick);
 document.getElementById("down").addEventListener("click", downClick);
 document.getElementById("left").addEventListener("click", leftClick);
 document.getElementById("right").addEventListener("click", rightClick);
-
-var snakeColor = "#0095DD";
-
-var snack = { x: -1, y: -1 };
-var snackColor = "red";
 
 window.mobilecheck = function() {
   var check = false;
@@ -158,16 +164,23 @@ function generateSnacks() {
   do {
     var xSection = Math.floor(Math.random() * sectionNums.x);
     var ySection = Math.floor(Math.random() * sectionNums.y);
-    console.log(xSection);
-    console.log(ySection);
     snack.x = xSection * sectionWidth;
     snack.y = ySection * sectionHeight;
   } while (snake.some(snackIsOnSnake));
+  imgSnack = new Image();
+  imgSnack.src = snackPics[Math.floor(Math.random() * 3)];
 }
 
 function drawSnack() {
   ctx.fillStyle = snackColor;
-  ctx.fillRect(snack.x, snack.y, sectionWidth, sectionHeight);
+  // ctx.fillRect(snack.x, snack.y, sectionWidth, sectionHeight);
+  ctx.drawImage(
+    imgSnack,
+    snack.x - sectionWidth / 8,
+    snack.y - sectionHeight / 8,
+    sectionWidth + sectionWidth / 4,
+    sectionHeight + sectionHeight / 4
+  );
 }
 
 function snackIsEaten() {

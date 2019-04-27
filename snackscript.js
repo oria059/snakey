@@ -2,16 +2,19 @@ var canvas = document.getElementById("snake-board");
 
 var ctx = canvas.getContext("2d");
 
-canvas.width = 672;
+canvas.width = 840;
 canvas.height = 672;
 // alt: 672, 24, 14
+
+var background;
 
 var speed = 150;
 var lost = false;
 var paused = false;
+var bgmode = false;
 // var xSections = 20;
 // var ySections = 20;
-var sectionNums = { x: 12, y: 12 }; // number of sections
+var sectionNums = { x: 15, y: 12 }; // number of sections
 
 // height == width probably a good idea
 var sectionWidth = canvas.width / sectionNums.x;
@@ -84,7 +87,11 @@ window.mobilecheck = function() {
 
 function keyDownHandler(e) {
   // left key
-  if ((e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode == 80) {
+  if (
+    (e.keyCode >= 37 && e.keyCode <= 40) ||
+    e.keyCode == 80 ||
+    e.keyCode == 71
+  ) {
     console.log("key pressed: ");
     console.log(e.keyCode);
     if (e.keyCode == 37 && direction != "right") {
@@ -105,6 +112,13 @@ function keyDownHandler(e) {
         paused = false;
       } else {
         paused = true;
+      }
+    } else if (e.keyCode == 71) {
+      // g is pressed
+      if (bgmode) {
+        bgmode = false;
+      } else {
+        bgmode = true;
       }
     }
     //  drawSnake(direction);
@@ -173,7 +187,7 @@ function generateSnacks() {
 }
 
 function drawSnack() {
-  ctx.fillStyle = snackColor;
+  // ctx.fillStyle = snackColor;
   // ctx.fillRect(snack.x, snack.y, sectionWidth, sectionHeight);
   ctx.drawImage(
     imgSnack,
@@ -255,11 +269,20 @@ function checkHitWall() {
 
 function checkHitBody() {}
 
+function drawBackground() {
+  background = new Image();
+  background.src = "snackpack/bg1.jpg";
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+}
+
 function draw() {
   //  console.log("draw");
   if (!lost && !paused) {
     moveSnake();
     clearCanvas();
+    if (bgmode) {
+      drawBackground();
+    }
     snackCheck();
     drawSnack();
     drawSnake();
@@ -272,11 +295,9 @@ function mobileCheck() {
   if (window.mobilecheck()) {
     // alt: 672, 24, 14
     speed = 280;
-    sectionNums = { x: 14, y: 14 }; // number of sections
-    sectionWidth = canvas.width / sectionNums.x;
-    sectionHeight = canvas.height / sectionNums.y;
-    //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
-    // snake = [snakeHead];
+    // sectionNums = { x: 14, y: 12 }; // number of sections
+    // sectionWidth = canvas.width / sectionNums.x;
+    // sectionHeight = canvas.height / sectionNums.y;
   }
 }
 

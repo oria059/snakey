@@ -258,7 +258,7 @@ function mobileCheck() {
   if (window.mobilecheck()) {
     // alt: 672, 24, 14
     speed = 280;
-    sectionNums = { x: 14, y: 14 }; // number of sections
+    sectionNums = { x: 12, y: 12 }; // number of sections
     sectionWidth = canvas.width / sectionNums.x;
     sectionHeight = canvas.height / sectionNums.y;
     //snakeHead = { x: canvas.width / 2, y: canvas.height / 2 };
